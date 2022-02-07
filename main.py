@@ -37,7 +37,7 @@ while not salir:
         sg.theme('Dark Grey 13')   
 
         layout = [[sg.Text('Escribe la ruta o navega entre los archivos')],
-          [sg.Input(), sg.FileBrowse()],
+          [sg.Input(), sg.FileBrowse(file_types=(("Data Files", "*.data"),))],
           [sg.OK(), sg.Cancel()]]
 
         window = sg.Window('Datos', layout)
@@ -60,7 +60,7 @@ while not salir:
         sg.theme('Dark Grey 13') 
 
         layout = [[sg.Text('Escribe la ruta o navega entre los archivos')],
-          [sg.Input(), sg.FileBrowse()],
+          [sg.Input(), sg.FileBrowse(file_types=(("lfp Files", "*.lfp"),))],
           [sg.OK(), sg.Cancel()]]
 
 
