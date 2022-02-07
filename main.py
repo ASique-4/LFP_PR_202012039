@@ -1,6 +1,7 @@
 
-from msilib.schema import File
-
+import PySimpleGUI as sg
+intrucciones_glob = ''
+datos_glob = ''
 print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
 def pedirNumeroEntero():
  
@@ -32,7 +33,7 @@ while not salir:
 
     if opcion == 1:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
-        import PySimpleGUI as sg
+
         sg.theme('Dark Grey 13')   
 
         layout = [[sg.Text('Escribe la ruta o navega entre los archivos')],
@@ -48,13 +49,14 @@ while not salir:
             print('No escogiste ningún archivo')
         else:
             print('Escogiste el archivo: ',Datos[0])
+            datos_glob = Datos[0]
         window.close()
 
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
     elif opcion == 2:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
 
-        import PySimpleGUI as sg
+        
         sg.theme('Dark Grey 13') 
 
         layout = [[sg.Text('Escribe la ruta o navega entre los archivos')],
@@ -71,11 +73,15 @@ while not salir:
             print('No escogiste ningún archivo')
         else:
             print('Escogiste el archivo: ',Instrucciones[0])
+            intrucciones_glob = Instrucciones[0]
         window.close()
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
     elif opcion == 3:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
-        print("Opcion 3")
+        if intrucciones_glob != None and datos_glob != None and intrucciones_glob != '' and datos_glob != '':
+            print("Analizando")
+        else:
+            print('Agregue los archivos de Datos e Instrucciones antes de analizar')
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
     elif opcion == 4:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
