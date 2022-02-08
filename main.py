@@ -1,10 +1,17 @@
 
+from ast import If
 import PySimpleGUI as sg
+HayTitulo = False
+Titulo = []
+HayTitulox = False
+Tituloy = []
+HayTituloy = False
+Titulox=[]
 intrucciones_glob = ''
 datos_glob = ''
-def PlotDeBarras(datos,instr):
+def PlotDeLineas()
+def PlotDeBarras(datos):
     import matplotlib.pyplot as plt
-
     ## Declaramos valores para el eje x
     eje_x = []
     for idx in range(len(datos)-1):
@@ -21,16 +28,27 @@ def PlotDeBarras(datos,instr):
     plt.bar(eje_x, eje_y)
     
     ## Legenda en el eje y
-    plt.ylabel('Cantidad de usuarios')
+    if Tituloy != None and Tituloy != '' and Tituloy != []:
+        plt.ylabel(Tituloy[0].upper())
+    else:
+        plt.ylabel('')
     
     ## Legenda en el eje x
-    plt.xlabel('Lenguajes de programación')
+    if Titulox != None and Titulox != '' and Titulox != []:
+        plt.xlabel(Titulox[0].upper())
+    else:
+        plt.xlabel('')
+    
     
     ## Título de Gráfica
-    plt.title('Usuarios de lenguajes de programación')
+    if Titulo != None and Titulo != '' and Titulo != []:
+        plt.title(Titulo[0].upper())
+    else:
+        plt.title(datos[len(datos)-1].upper())
+    
     
     ## Mostramos Gráfica
-    plt.show()
+    plt.savefig('Plot de barras.jpg')
 def AnalizarDatos(datos):
     file = open(datos, 'r') 
     inicio = False
@@ -45,7 +63,7 @@ def AnalizarDatos(datos):
         if titulobool == True and char != ':' and char != '=':
             titulo = titulo+char.strip()
         if char == ':':
-            titulo = titulo+','
+            titulo = titulo+'-'
         if char == '=':
             titulobool = False
         if char == '[':
@@ -66,7 +84,6 @@ def AnalizarDatos(datos):
 
     file.close() 
     return datos
-
 def AnalizarInstrucciones(instrucciones1):
     file = open(instrucciones1, 'r') 
     inicio = False
@@ -97,7 +114,8 @@ def AnalizarInstrucciones(instrucciones1):
 
 
     texto = eval(texto)
-
+    print(texto)
+    print(total)
     for idx in range(total):
 
         if str(texto[idx][0]).strip() == 'nombre' or str(texto[idx][0]).strip() == 'grafica':
@@ -106,13 +124,42 @@ def AnalizarInstrucciones(instrucciones1):
                     if texto[jdx][0].strip() == 'nombre' or texto[jdx][0].strip() == 'grafica' :
                         cumple = True
                         break
+    count = len(texto)
+    count2 = 0
+    while count2 <= len(texto):
+        for idx in range(0,len(texto)):
+                for jdx in range(0,len(texto)):
+                    if jdx >= count or idx >= count:
+                        break
+                    if str(texto[idx][0]).strip() == str(texto[jdx][0]).strip() and texto[jdx][0] != None and texto[idx][0] != None:
+                        if jdx != idx:
+                            if jdx < idx:
+                                texto.pop(jdx)
+                            else:
+                                texto.pop(idx)    
+                            count -=1
+                            break
+        count2 +=1
+    
 
-    if cumple == False:
-        print('No se puede analizar porque al archivo .lfp le faltan instrucciones')
-
+    for idx in range(total):
+        if str(texto[idx][0]).strip() == 'titulo':
+            Titulo.append(texto[idx][1])
+            break
+    for idx in range(total):
+        if str(texto[idx][0]).strip() == 'tituloy':
+            Tituloy.append(texto[idx][1])
+            break
+    for idx in range(total):
+        if str(texto[idx][0]).strip() == 'titulox':
+            Titulox.append(texto[idx][1])
+            break
 
     file.close() 
-    return texto
+    if cumple == False:
+        print('No se puede analizar porque al archivo .lfp le faltan instrucciones')
+    else:
+        return texto
 print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
 def pedirNumeroEntero():
  
