@@ -4,4 +4,6 @@ Grafica: "Barras",
 Titulo: "Reporte de Ventas Agosto", 
 TituloX: "Producto", 
 TituloY: "Total",
+TituloX: "TituloX2", 
+TituloY: "Total2",
 ?>
