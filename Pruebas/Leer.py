@@ -15,7 +15,7 @@ while 1:
     if titulobool == True and char != ':' and char != '=':
         titulo = titulo+char.strip()
     if char == ':':
-        titulo = titulo+"'-'"
+        titulo = titulo+"-"
     if char == '=':
         titulobool = False
     if char == '[':

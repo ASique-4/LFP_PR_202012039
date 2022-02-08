@@ -1,14 +1,18 @@
 
+from re import T
 import PySimpleGUI as sg
 from matplotlib.pyplot import plot
+nombre_del_grafico = []
 HayTitulo = False
 Titulo = []
+Titulo2 = ['REPORTE DE VENTAS ']
 HayTitulox = False
 Tituloy = []
 HayTituloy = False
 Titulox=[]
 intrucciones_glob = ''
 datos_glob = ''
+tipo_de_grafico = []
 def PlotDePastel(datos):
     import matplotlib.pyplot as plt
     ## Declaramos valores para el eje x
@@ -43,8 +47,8 @@ def PlotDePastel(datos):
     if Titulo != None and Titulo != '' and Titulo != []:
         plt.title(Titulo[0].upper())
     else:
-        plt.title(datos[len(datos)-1].upper())
-    plt.show()
+        plt.title('Reporte de Ventas '+datos[len(datos)-1].upper())
+    plt.savefig(str(nombre_del_grafico[0])+'.jpg')
 def PlotDeLineas(datos):
     import matplotlib.pyplot as plt
     ## Declaramos valores para el eje x
@@ -78,10 +82,10 @@ def PlotDeLineas(datos):
     
     ## Título de Gráfica
     if Titulo != None and Titulo != '' and Titulo != []:
-        plt.title(Titulo[0].upper())
+        plt.title(Titulo.upper())
     else:
         plt.title(datos[len(datos)-1].upper())
-    plt.show()
+    plt.savefig(str(nombre_del_grafico[0])+'.jpg')
 def PlotDeBarras(datos):
     import matplotlib.pyplot as plt
     ## Declaramos valores para el eje x
@@ -113,14 +117,16 @@ def PlotDeBarras(datos):
     
     
     ## Título de Gráfica
+    print(Titulo)
     if Titulo != None and Titulo != '' and Titulo != []:
         plt.title(Titulo[0].upper())
     else:
-        plt.title(datos[len(datos)-1].upper())
+        titulo_grf = str(Titulo2[0])+str(Titulo2[1].upper())
+        plt.title(titulo_grf)
     
     
     ## Mostramos Gráfica
-    plt.savefig('Plot de barras.jpg')
+    plt.savefig(str(nombre_del_grafico[0])+'.jpg')
 def AnalizarDatos(datos):
     file = open(datos, 'r') 
     inicio = False
@@ -153,6 +159,7 @@ def AnalizarDatos(datos):
     datos = eval(texto)
 
     datos.append(titulo)
+    Titulo2.append(titulo)
 
     file.close() 
     return datos
@@ -186,8 +193,6 @@ def AnalizarInstrucciones(instrucciones1):
 
 
     texto = eval(texto)
-    print(texto)
-    print(total)
     for idx in range(total):
 
         if str(texto[idx][0]).strip() == 'nombre' or str(texto[idx][0]).strip() == 'grafica':
@@ -213,20 +218,27 @@ def AnalizarInstrucciones(instrucciones1):
                             break
         count2 +=1
     
-
+    total = len(texto)
     for idx in range(total):
         if str(texto[idx][0]).strip() == 'titulo':
-            Titulo.append(texto[idx][1])
+            Titulo.append('Reporte de Ventas'+str(texto[idx]))
             break
     for idx in range(total):
-        if str(texto[idx][0]).strip() == 'tituloy':
+        if str(texto[idx][0]).strip() == 'tituloy' or str(texto[idx][0]).strip() == 'títuloy':
             Tituloy.append(texto[idx][1])
             break
     for idx in range(total):
-        if str(texto[idx][0]).strip() == 'titulox':
+        if str(texto[idx][0]).strip() == 'titulox' or str(texto[idx][0]).strip() == 'títulox':
             Titulox.append(texto[idx][1])
             break
-
+    for idx in range(total):
+        if str(texto[idx][0]).strip() == 'grafica' or str(texto[idx][0]).strip() == 'gráfica':
+            tipo_de_grafico.append(texto[idx][1])
+            break
+    for idx in range(total):
+        if str(texto[idx][0]).strip() == 'nombre':
+            nombre_del_grafico.append(texto[idx][1])
+            break
     file.close() 
     if cumple == False:
         print('No se puede analizar porque al archivo .lfp le faltan instrucciones')
@@ -309,11 +321,16 @@ while not salir:
     elif opcion == 3:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
         if intrucciones_glob != None and datos_glob != None and intrucciones_glob != '' and datos_glob != '':
-
-            #PlotDeBarras(AnalizarDatos(datos_glob))
             AnalizarInstrucciones(intrucciones_glob)
-            #PlotDeLineas(AnalizarDatos(datos_glob))
-            PlotDePastel(AnalizarDatos(datos_glob))
+            
+            if str(tipo_de_grafico[0]).strip() == 'barras':
+                PlotDeBarras(AnalizarDatos(datos_glob))
+            elif str(tipo_de_grafico[0]).strip() == 'lineas' or str(tipo_de_grafico[0]).strip() == 'líneas':
+                PlotDeLineas(AnalizarDatos(datos_glob))
+            elif str(tipo_de_grafico[0]).strip() == 'pie':
+                PlotDePastel(AnalizarDatos(datos_glob))
+            else:
+                print('Algo salió mal')
         else:
             print('Agregue los archivos de Datos e Instrucciones antes de analizar')
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
