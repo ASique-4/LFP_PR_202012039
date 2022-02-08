@@ -1,6 +1,6 @@
 
-from ast import If
 import PySimpleGUI as sg
+from matplotlib.pyplot import plot
 HayTitulo = False
 Titulo = []
 HayTitulox = False
@@ -9,7 +9,79 @@ HayTituloy = False
 Titulox=[]
 intrucciones_glob = ''
 datos_glob = ''
-def PlotDeLineas()
+def PlotDePastel(datos):
+    import matplotlib.pyplot as plt
+    ## Declaramos valores para el eje x
+    eje_x = []
+    for idx in range(len(datos)-1):
+        eje_x.append(datos[idx][0])
+
+    ## Declaramos valores para el eje y
+    eje_y = []
+    for idx in range(len(datos)-1):
+        num = int(datos[idx][1])*int(datos[idx][2])
+        eje_y.append(num)
+    
+    
+    ## Creamos Gráfica
+    plt.pie(eje_y,labels=eje_x)
+    
+    ## Legenda en el eje y
+    if Tituloy != None and Tituloy != '' and Tituloy != []:
+        plt.ylabel(Tituloy[0].upper())
+    else:
+        plt.ylabel('')
+    
+    ## Legenda en el eje x
+    if Titulox != None and Titulox != '' and Titulox != []:
+        plt.xlabel(Titulox[0].upper())
+    else:
+        plt.xlabel('')
+    
+    
+    ## Título de Gráfica
+    if Titulo != None and Titulo != '' and Titulo != []:
+        plt.title(Titulo[0].upper())
+    else:
+        plt.title(datos[len(datos)-1].upper())
+    plt.show()
+def PlotDeLineas(datos):
+    import matplotlib.pyplot as plt
+    ## Declaramos valores para el eje x
+    eje_x = []
+    for idx in range(len(datos)-1):
+        eje_x.append(datos[idx][0])
+
+    ## Declaramos valores para el eje y
+    eje_y = []
+    for idx in range(len(datos)-1):
+        num = int(datos[idx][1])*int(datos[idx][2])
+        eje_y.append(num)
+    
+    
+    ## Creamos Gráfica
+    fig, ax = plt.subplots()
+    ax.plot(eje_x, eje_y)
+    
+    ## Legenda en el eje y
+    if Tituloy != None and Tituloy != '' and Tituloy != []:
+        plt.ylabel(Tituloy[0].upper())
+    else:
+        plt.ylabel('')
+    
+    ## Legenda en el eje x
+    if Titulox != None and Titulox != '' and Titulox != []:
+        plt.xlabel(Titulox[0].upper())
+    else:
+        plt.xlabel('')
+    
+    
+    ## Título de Gráfica
+    if Titulo != None and Titulo != '' and Titulo != []:
+        plt.title(Titulo[0].upper())
+    else:
+        plt.title(datos[len(datos)-1].upper())
+    plt.show()
 def PlotDeBarras(datos):
     import matplotlib.pyplot as plt
     ## Declaramos valores para el eje x
@@ -238,7 +310,10 @@ while not salir:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
         if intrucciones_glob != None and datos_glob != None and intrucciones_glob != '' and datos_glob != '':
 
-            PlotDeBarras(AnalizarDatos(datos_glob),AnalizarInstrucciones(intrucciones_glob))
+            #PlotDeBarras(AnalizarDatos(datos_glob))
+            AnalizarInstrucciones(intrucciones_glob)
+            #PlotDeLineas(AnalizarDatos(datos_glob))
+            PlotDePastel(AnalizarDatos(datos_glob))
         else:
             print('Agregue los archivos de Datos e Instrucciones antes de analizar')
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
