@@ -1,8 +1,6 @@
 from PIL import Image
 from operator import itemgetter
-from re import T
 import PySimpleGUI as sg
-from matplotlib.pyplot import plot
 nombre_del_grafico = []
 HayTitulo = False
 Titulo = []
@@ -236,7 +234,7 @@ def AnalizarInstrucciones(instrucciones1):
     while 1: 
         char = file.read(1) 
         if char == '?':
-            texto = texto[:-6]
+            texto = texto[:-1]
             texto += "']]"
             inicio = False
             break
