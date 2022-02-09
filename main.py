@@ -1,4 +1,5 @@
 from PIL import Image
+from operator import itemgetter
 from re import T
 import PySimpleGUI as sg
 from matplotlib.pyplot import plot
@@ -13,14 +14,57 @@ Titulox=[]
 intrucciones_glob = ''
 datos_glob = ''
 tipo_de_grafico = []
-def CrearReportes():
+def merge(list1, list2): 
+      
+    merged_list = [[list1[i], list2[i]] for i in range(0, len(list1))] 
+    return merged_list 
+
+
+
+def CrearReportes(datos):
     
+    ganancias =[]
+    for idx in range(len(datos)-1):
+        ganancias.append(datos[idx][0])
+
+    ganancias2 = []
+    for jdx in range(len(datos)-1):
+        num = int(datos[jdx][1])*int(datos[jdx][2])
+        ganancias2.append(num)
+
+    lista = []
+    lista = merge(ganancias,ganancias2)
+    lista = sorted(lista, key=itemgetter(1),reverse=True)
+
     f = open('holamundo.html','w')
 
     mensaje = """<html>
-    <head></head>
-    <body><p>Hola Mundo!</p></body>
-    </html>"""
+    <head>Angel Francisco Sique Santos -- 202012039
+        <style>
+        </style>
+    </head>
+    
+    <body>
+        <table border="1" cellpadding="0" cellspacing="0" width="50%">
+            <tr>
+            <td width="50%" bgcolor="#33c1ff ">Producto</td>
+            <td width="50%" bgcolor=" #42ff33 ">Ganancias</td>
+            </tr>
+            <tr>
+            """ 
+    for i in range(len(lista)):
+        mensaje +="""
+        <tr>
+        <td width="50%">"""+str(lista[i][0]).upper()+"""</td>
+        <td width="50%">"""+str(lista[i][1])+"""</td>
+        </tr>
+        """
+
+    mensaje += """
+        </tr>
+        </table>
+    </body>
+</html>"""
 
     f.write(mensaje)
     f.close()
@@ -40,19 +84,6 @@ def PlotDePastel(datos):
     
     ## Creamos Gráfica
     plt.pie(eje_y,labels=eje_x)
-    
-    ## Legenda en el eje y
-    if Tituloy != None and Tituloy != '' and Tituloy != []:
-        plt.ylabel(Tituloy[0].upper())
-    else:
-        plt.ylabel('')
-    
-    ## Legenda en el eje x
-    if Titulox != None and Titulox != '' and Titulox != []:
-        plt.xlabel(Titulox[0].upper())
-    else:
-        plt.xlabel('')
-    
     
     ## Título de Gráfica
     if Titulo != None and Titulo != '' and Titulo != []:
@@ -359,7 +390,7 @@ while not salir:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
     elif opcion == 4:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
-        CrearReportes()
+        CrearReportes(AnalizarDatos(datos_glob))
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><') 
     elif opcion == 5:
 
