@@ -3,19 +3,19 @@ Junio : 2020 = (
     ["producto 2",35.75,10];
     ["producto 3",15,3];
     ["producto 4",25,6];
-    ["producto 4",35.75,8];
-    ["producto 3",15,2.5];
-    ["producto 1",25,3.3];
-    ["producto 2",35.75,4];
-    ["producto 3",15,3];
-    ["producto 1",25,6];
-    ["producto 2",35.75,3.4];
-    ["producto 3",15,3.6];
-    ["producto 1",25,6.7];
-    ["producto 2",35.75,10.8];
-    ["producto 3",15,8];
-    ["producto 1",25,9];
-    ["producto 2",35.75,11];
-    ["producto 3",15,2];
-    ["producto 4",50,2.5]
+    ["producto 5",35.75,8];
+    ["producto 6",15,2.5];
+    ["producto 7",25,3.3];
+    ["producto 9",35.75,4];
+    ["producto 10",15,3];
+    ["producto 11",25,6];
+    ["producto 12",35.75,3.4];
+    ["producto 13",15,3.6];
+    ["producto 14",25,6.7];
+    ["producto 15",35.75,10.8];
+    ["producto 16",15,8];
+    ["producto 17",25,9];
+    ["producto 18",35.75,11];
+    ["producto 19",15,2];
+    ["producto 20",50,2.5]
 )
