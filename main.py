@@ -39,30 +39,44 @@ def CrearReportes(datos):
     f = open('holamundo.html','w')
 
     mensaje = """<html>
-    <head>Angel Francisco Sique Santos -- 202012039
+    <head><title> REPORTE DE VENTAS </title>
         <style>
         </style>
     </head>
     
-    <body>
-        <table border="1" cellpadding="0" cellspacing="0" width="50%">
+    <body bgcolor=" #72c1af ">
+        <h1 style="text-align: center; color: bisque;">Angel Francisco Sique Santos -- 202012039</h1>
+        <table align="center" border="1" cellpadding="0" cellspacing="0" width="50%">
             <tr>
-            <td width="50%" bgcolor="#33c1ff ">Producto</td>
-            <td width="50%" bgcolor=" #42ff33 ">Ganancias</td>
+            <td style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" width="50%" bgcolor="#33c1ff " align="center">Producto</td>
+            <td style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" width="50%" bgcolor=" #42ff33 " align="center">Ganancias</td>
             </tr>
             <tr>
             """ 
     for i in range(len(lista)):
         mensaje +="""
         <tr>
-        <td width="50%">"""+str(lista[i][0]).upper()+"""</td>
-        <td width="50%">"""+str(lista[i][1])+"""</td>
+        <td  bgcolor=" #c6f5eb " width="50%">"""+str(lista[i][0]).upper()+"""</td>
+        <td width="50%" bgcolor=" #c6f5eb " align="center">"""+str(lista[i][1])+"""</td>
         </tr>
         """
-
+    
     mensaje += """
         </tr>
-        </table>
+        </table>"""
+    mensaje +="""
+    <table align="center" border="1" cellpadding="0" cellspacing="0" width="50%">
+            <tr>
+            <td style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" width="50%" bgcolor="#33c1ff " align="center">Producto Más Vendido</td>
+            <td style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" width="50%" bgcolor=" #33c1ff " align="center">Producto Menos Vendido</td>
+            </tr>
+            <tr>
+        <tr>
+        <td  bgcolor=" #c6f5eb " width="50%" align="center">"""+str(lista[0][0]).upper()+"""</td>
+        <td width="50%" bgcolor=" #c6f5eb " align="center">"""+str(lista[len(lista)-1][0]).upper()+"""</td>
+        </tr>
+        """
+    mensaje +="""
     </body>
 </html>"""
 
@@ -390,7 +404,11 @@ while not salir:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
     elif opcion == 4:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
-        CrearReportes(AnalizarDatos(datos_glob))
+        if datos_glob != None and datos_glob != '': 
+            print('Realizando reportes')
+            CrearReportes(AnalizarDatos(datos_glob))
+        else:
+                print('Algo salió mal')
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><') 
     elif opcion == 5:
 

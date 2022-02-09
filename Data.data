@@ -2,5 +2,20 @@ Junio : 2020 = (
     ["producto 1",25,6];
     ["producto 2",35.75,10];
     ["producto 3",15,3];
-    ["producto 4",50,5]
+    ["producto 4",25,6];
+    ["producto 4",35.75,8];
+    ["producto 3",15,2.5];
+    ["producto 1",25,3.3];
+    ["producto 2",35.75,4];
+    ["producto 3",15,3];
+    ["producto 1",25,6];
+    ["producto 2",35.75,3.4];
+    ["producto 3",15,3.6];
+    ["producto 1",25,6.7];
+    ["producto 2",35.75,10.8];
+    ["producto 3",15,8];
+    ["producto 1",25,9];
+    ["producto 2",35.75,11];
+    ["producto 3",15,2];
+    ["producto 4",50,2.5]
 )
