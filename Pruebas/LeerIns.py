@@ -7,26 +7,30 @@ file = open('instrucciones.lfp', 'r')
 inicio = False
 cumple = False
 total = 0
-texto = "[['"
+texto = ""
 while 1: 
     char = file.read(1) 
+    if char == '?':
+        texto = texto[:-6]
+        texto += "']"
+        inicio = False
+        break
     if char == ',':
         texto = texto+"'],['"
         total = total+1
     if char == '¿':
+        texto += "['"
         inicio = True
     if char == ':':
         texto = texto+"','"
-    if char == '?':
-        inicio = False
+    
     
     if inicio == True:
 
-        if char != '\n' and char != '' and char != None and char != '¿' and char != '"' and char != ':' and char != ',':
+        if char != '\n' and char != '' and char != None and char != '¿' and char != '"' and char != ':' and char != ',' and char != '?':
             texto = texto+char.lower()
     if not char:  
-        texto = texto[:-2]
-        texto = texto+']'
+
         break 
 
 print(eval(texto))

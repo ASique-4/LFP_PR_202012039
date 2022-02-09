@@ -1,4 +1,4 @@
-
+from PIL import Image
 from re import T
 import PySimpleGUI as sg
 from matplotlib.pyplot import plot
@@ -13,6 +13,17 @@ Titulox=[]
 intrucciones_glob = ''
 datos_glob = ''
 tipo_de_grafico = []
+def CrearReportes():
+    
+    f = open('holamundo.html','w')
+
+    mensaje = """<html>
+    <head></head>
+    <body><p>Hola Mundo!</p></body>
+    </html>"""
+
+    f.write(mensaje)
+    f.close()
 def PlotDePastel(datos):
     import matplotlib.pyplot as plt
     ## Declaramos valores para el eje x
@@ -45,10 +56,13 @@ def PlotDePastel(datos):
     
     ## Título de Gráfica
     if Titulo != None and Titulo != '' and Titulo != []:
-        plt.title(Titulo[0].upper())
+        plt.title(Titulo[0])
     else:
-        plt.title('Reporte de Ventas '+datos[len(datos)-1].upper())
+        titulo_grf = str(Titulo2[0])+str(Titulo2[1].upper())
+        plt.title(titulo_grf)
     plt.savefig(str(nombre_del_grafico[0])+'.jpg')
+    imagen = Image.open(str(nombre_del_grafico[0])+'.jpg')
+    imagen.show()
 def PlotDeLineas(datos):
     import matplotlib.pyplot as plt
     ## Declaramos valores para el eje x
@@ -82,10 +96,13 @@ def PlotDeLineas(datos):
     
     ## Título de Gráfica
     if Titulo != None and Titulo != '' and Titulo != []:
-        plt.title(Titulo.upper())
+        plt.title(Titulo[0])
     else:
-        plt.title(datos[len(datos)-1].upper())
+        titulo_grf = str(Titulo2[0])+str(Titulo2[1].upper())
+        plt.title(titulo_grf)
     plt.savefig(str(nombre_del_grafico[0])+'.jpg')
+    imagen = Image.open(str(nombre_del_grafico[0])+'.jpg')
+    imagen.show()
 def PlotDeBarras(datos):
     import matplotlib.pyplot as plt
     ## Declaramos valores para el eje x
@@ -119,7 +136,7 @@ def PlotDeBarras(datos):
     ## Título de Gráfica
     print(Titulo)
     if Titulo != None and Titulo != '' and Titulo != []:
-        plt.title(Titulo.upper())
+        plt.title(Titulo[0])
     else:
         titulo_grf = str(Titulo2[0])+str(Titulo2[1].upper())
         plt.title(titulo_grf)
@@ -127,6 +144,8 @@ def PlotDeBarras(datos):
     
     ## Mostramos Gráfica
     plt.savefig(str(nombre_del_grafico[0])+'.jpg')
+    imagen = Image.open(str(nombre_del_grafico[0])+'.jpg')
+    imagen.show()
 def AnalizarDatos(datos):
     file = open(datos, 'r') 
     inicio = False
@@ -168,26 +187,30 @@ def AnalizarInstrucciones(instrucciones1):
     inicio = False
     cumple = False
     total = 0
-    texto = "[['"
+    texto = "["
     while 1: 
         char = file.read(1) 
+        if char == '?':
+            texto = texto[:-6]
+            texto += "']]"
+            inicio = False
+            break
         if char == ',':
             texto = texto+"'],['"
             total = total+1
         if char == '¿':
+            texto += "['"
             inicio = True
         if char == ':':
             texto = texto+"','"
-        if char == '?':
-            inicio = False
-        
+    
+    
         if inicio == True:
 
-            if char != '\n' and char != '' and char != None and char != '¿' and char != '"' and char != ':' and char != ',':
+            if char != '\n' and char != '' and char != None and char != '¿' and char != '"' and char != ':' and char != ',' and char != '?':
                 texto = texto+char.lower()
         if not char:  
-            texto = texto[:-2]
-            texto = texto+']'
+
             break 
 
 
@@ -221,7 +244,7 @@ def AnalizarInstrucciones(instrucciones1):
     total = len(texto)
     for idx in range(total):
         if str(texto[idx][0]).strip() == 'titulo':
-            Titulo.append('Reporte de Ventas'+str(texto[idx]))
+            Titulo.append(texto[idx][1].upper())
             break
     for idx in range(total):
         if str(texto[idx][0]).strip() == 'tituloy' or str(texto[idx][0]).strip() == 'títuloy':
@@ -336,13 +359,13 @@ while not salir:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
     elif opcion == 4:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
-        print("Opcion 4")   
+        CrearReportes()
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><') 
     elif opcion == 5:
 
         salir = True
     else:
         print ("Introduce un numero entre 1 y 5")
- 
+print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><') 
 print ("Fin")
-
+print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
