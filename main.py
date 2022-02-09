@@ -119,7 +119,7 @@ def PlotDeBarras(datos):
     ## Título de Gráfica
     print(Titulo)
     if Titulo != None and Titulo != '' and Titulo != []:
-        plt.title(Titulo[0].upper())
+        plt.title(Titulo.upper())
     else:
         titulo_grf = str(Titulo2[0])+str(Titulo2[1].upper())
         plt.title(titulo_grf)
