@@ -1,4 +1,5 @@
 from PIL import Image
+import webbrowser 
 from operator import itemgetter
 import PySimpleGUI as sg
 nombre_del_grafico = []
@@ -80,6 +81,7 @@ def CrearReportes(datos):
 
     f.write(mensaje)
     f.close()
+    webbrowser.open('holamundo.html') 
 def PlotDePastel(datos):
     import matplotlib.pyplot as plt
     ## Declaramos valores para el eje x
