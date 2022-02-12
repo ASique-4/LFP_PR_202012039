@@ -55,7 +55,7 @@ def CrearReportes(datos):
     for i in range(len(lista)):
         mensaje +="""
         <tr>
-        <td  bgcolor=" #c6f5eb " width="50%">"""+str(lista[i][0]).upper()+"""</td>
+        <td  bgcolor=" #c6f5eb " width="50%">"""+str(lista[i][0])+"""</td>
         <td width="50%" bgcolor=" #c6f5eb " align="center">"""+str(lista[i][1])+"""</td>
         </tr>
         """
@@ -71,8 +71,8 @@ def CrearReportes(datos):
             </tr>
             <tr>
         <tr>
-        <td  bgcolor=" #c6f5eb " width="50%" align="center">"""+str(lista[0][0]).upper()+"""</td>
-        <td width="50%" bgcolor=" #c6f5eb " align="center">"""+str(lista[len(lista)-1][0]).upper()+"""</td>
+        <td  bgcolor=" #c6f5eb " width="50%" align="center">"""+str(lista[0][0])+"""</td>
+        <td width="50%" bgcolor=" #c6f5eb " align="center">"""+str(lista[len(lista)-1][0])+"""</td>
         </tr>
         """
     mensaje +="""
@@ -103,7 +103,7 @@ def PlotDePastel(datos):
     if Titulo != None and Titulo != '' and Titulo != []:
         plt.title(Titulo[0])
     else:
-        titulo_grf = str(Titulo2[0])+str(Titulo2[1].upper())
+        titulo_grf = str(Titulo2[0])+str(Titulo2[1])
         plt.title(titulo_grf)
     plt.savefig(str(nombre_del_grafico[0])+'.jpg')
     imagen = Image.open(str(nombre_del_grafico[0])+'.jpg')
@@ -128,13 +128,13 @@ def PlotDeLineas(datos):
     
     ## Legenda en el eje y
     if Tituloy != None and Tituloy != '' and Tituloy != []:
-        plt.ylabel(Tituloy[0].upper())
+        plt.ylabel(Tituloy[0])
     else:
         plt.ylabel('')
     
     ## Legenda en el eje x
     if Titulox != None and Titulox != '' and Titulox != []:
-        plt.xlabel(Titulox[0].upper())
+        plt.xlabel(Titulox[0])
     else:
         plt.xlabel('')
     
@@ -143,7 +143,7 @@ def PlotDeLineas(datos):
     if Titulo != None and Titulo != '' and Titulo != []:
         plt.title(Titulo[0])
     else:
-        titulo_grf = str(Titulo2[0])+str(Titulo2[1].upper())
+        titulo_grf = str(Titulo2[0])+str(Titulo2[1])
         plt.title(titulo_grf)
     plt.savefig(str(nombre_del_grafico[0])+'.jpg')
     imagen = Image.open(str(nombre_del_grafico[0])+'.jpg')
@@ -167,23 +167,22 @@ def PlotDeBarras(datos):
     
     ## Legenda en el eje y
     if Tituloy != None and Tituloy != '' and Tituloy != []:
-        plt.ylabel(Tituloy[0].upper())
+        plt.ylabel(Tituloy[0])
     else:
         plt.ylabel('')
     
     ## Legenda en el eje x
     if Titulox != None and Titulox != '' and Titulox != []:
-        plt.xlabel(Titulox[0].upper())
+        plt.xlabel(Titulox[0])
     else:
         plt.xlabel('')
     
     
     ## Título de Gráfica
-    print(Titulo)
     if Titulo != None and Titulo != '' and Titulo != []:
         plt.title(Titulo[0])
     else:
-        titulo_grf = str(Titulo2[0])+str(Titulo2[1].upper())
+        titulo_grf = str(Titulo2[0])+str(Titulo2[1])
         plt.title(titulo_grf)
     
     
@@ -203,7 +202,7 @@ def AnalizarDatos(datos):
         if char == ';':
             texto = texto+','
         if titulobool == True and char != ':' and char != '=':
-            titulo = titulo+char.strip()
+            titulo = titulo+char.strip().lower()
         if char == ':':
             titulo = titulo+'-'
         if char == '=':
@@ -211,8 +210,8 @@ def AnalizarDatos(datos):
         if char == '[':
             inicio = True
         if inicio == True:
-            if char != '\n' and char != '' and char != None and char != ';':
-                texto = texto+char.strip()
+            if char != '\n' and char != ';':
+                texto = texto+char
         if char == ';':
             inicio = False
         if not char:  
@@ -229,8 +228,8 @@ def AnalizarDatos(datos):
     return datos
 def AnalizarInstrucciones(instrucciones1):
     file = open(instrucciones1, 'r') 
-    inicio = False
     cumple = False
+    inicio = False
     total = 0
     texto = "["
     while 1: 
@@ -253,7 +252,7 @@ def AnalizarInstrucciones(instrucciones1):
         if inicio == True:
 
             if char != '\n' and char != '' and char != None and char != '¿' and char != '"' and char != ':' and char != ',' and char != '?':
-                texto = texto+char.lower()
+                texto = texto+char
         if not char:  
 
             break 
@@ -261,12 +260,12 @@ def AnalizarInstrucciones(instrucciones1):
 
 
     texto = eval(texto)
-    for idx in range(total):
+    for idx in range(len(texto)):
 
-        if str(texto[idx][0]).strip() == 'nombre' or str(texto[idx][0]).strip() == 'grafica':
-            for jdx in range(total):
+        if str(texto[idx][0]).strip().lower() == 'nombre' or str(texto[idx][0]).strip().lower() == 'grafica' or str(texto[idx][0]).strip().lower() == 'Gráfica' or str(texto[idx][0]).strip().lower() == 'gráfica':
+            for jdx in range(len(texto)):
                 if jdx != idx:
-                    if texto[jdx][0].strip() == 'nombre' or texto[jdx][0].strip() == 'grafica' :
+                    if str(texto[jdx][0]).strip().lower() == 'nombre' or str(texto[jdx][0]).strip().lower() == 'grafica' or str(texto[jdx][0]).strip().lower() == 'Gráfica' or str(texto[jdx][0]).strip().lower() == 'gráfica' :
                         cumple = True
                         break
     count = len(texto)
@@ -276,7 +275,7 @@ def AnalizarInstrucciones(instrucciones1):
                 for jdx in range(0,len(texto)):
                     if jdx >= count or idx >= count:
                         break
-                    if str(texto[idx][0]).strip() == str(texto[jdx][0]).strip() and texto[jdx][0] != None and texto[idx][0] != None:
+                    if str(texto[idx][0]).strip().lower() == str(texto[jdx][0]).strip().lower() and texto[jdx][0] != None and texto[idx][0] != None:
                         if jdx != idx:
                             if jdx < idx:
                                 texto.pop(jdx)
@@ -288,23 +287,23 @@ def AnalizarInstrucciones(instrucciones1):
     
     total = len(texto)
     for idx in range(total):
-        if str(texto[idx][0]).strip() == 'titulo':
-            Titulo.append(texto[idx][1].upper())
+        if str(texto[idx][0]).strip().lower() == 'titulo':
+            Titulo.append(texto[idx][1])
             break
     for idx in range(total):
-        if str(texto[idx][0]).strip() == 'tituloy' or str(texto[idx][0]).strip() == 'títuloy':
+        if str(texto[idx][0]).strip().lower() == 'tituloy' or str(texto[idx][0]).strip().lower() == 'títuloy':
             Tituloy.append(texto[idx][1])
             break
     for idx in range(total):
-        if str(texto[idx][0]).strip() == 'titulox' or str(texto[idx][0]).strip() == 'títulox':
+        if str(texto[idx][0]).strip().lower() == 'titulox' or str(texto[idx][0]).strip().lower() == 'títulox':
             Titulox.append(texto[idx][1])
             break
     for idx in range(total):
-        if str(texto[idx][0]).strip() == 'grafica' or str(texto[idx][0]).strip() == 'gráfica':
+        if str(texto[idx][0]).strip().lower() == 'grafica' or str(texto[idx][0]).strip().lower() == 'gráfica':
             tipo_de_grafico.append(texto[idx][1])
             break
     for idx in range(total):
-        if str(texto[idx][0]).strip() == 'nombre':
+        if str(texto[idx][0]).strip().lower() == 'nombre':
             nombre_del_grafico.append(texto[idx][1])
             break
     file.close() 
@@ -388,14 +387,15 @@ while not salir:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
     elif opcion == 3:
         print('>< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< >< ><')
+        print('Realizando graficas')
         if intrucciones_glob != None and datos_glob != None and intrucciones_glob != '' and datos_glob != '':
             AnalizarInstrucciones(intrucciones_glob)
             
-            if str(tipo_de_grafico[0]).strip() == 'barras':
+            if str(tipo_de_grafico[0]).strip().lower() == 'barras':
                 PlotDeBarras(AnalizarDatos(datos_glob))
-            elif str(tipo_de_grafico[0]).strip() == 'lineas' or str(tipo_de_grafico[0]).strip() == 'líneas':
+            elif str(tipo_de_grafico[0]).strip().lower() == 'lineas' or str(tipo_de_grafico[0]).strip().lower() == 'líneas':
                 PlotDeLineas(AnalizarDatos(datos_glob))
-            elif str(tipo_de_grafico[0]).strip() == 'pie':
+            elif str(tipo_de_grafico[0]).strip().lower() == 'pie':
                 PlotDePastel(AnalizarDatos(datos_glob))
             else:
                 print('Algo salió mal')
